@@ -8,11 +8,15 @@ interface Props {
 export default function Transcricao({ onTranscricao }: Props) {
   const [texto, setTexto] = useState('');
   const [gravando, setGravando] = useState(false);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const SpeechRecognition =
+       // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
       if (SpeechRecognition) {
@@ -20,7 +24,7 @@ export default function Transcricao({ onTranscricao }: Props) {
         recognition.lang = 'pt-BR';
         recognition.continuous = true;
         recognition.interimResults = true;
-
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
         recognition.onresult = (event: any) => {
           let interim = '';
           for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -32,6 +36,7 @@ export default function Transcricao({ onTranscricao }: Props) {
                 return novo;
               });
             } else {
+               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               interim += result[0].transcript;
             }
           }
